@@ -20,4 +20,11 @@ defmodule SimpleBlog.Web.SessionController do
         render(conn, "new.html", changeset: changeset)
     end
   end
+
+  def delete(conn, _) do
+    conn
+    |> Guardian.Plug.sign_out()
+    |> put_flash(:info, "You have been logged out")
+    |> redirect(to: "/")
+  end
 end

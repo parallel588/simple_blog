@@ -21,12 +21,17 @@
 
       <div class="collapse navbar-collapse" id="navbars">
         <ul class="nav nav-pills pull-right">
+          <%= if Guardian.Plug.current_resource(@conn) do %>
+          <li class="nav-item"><%= link "Users", to: "/admin", class: "btn btn-default"  %></li>
+          <li class="nav-item"><%= link "Blog", to: "/admin/blogs", class: "btn btn-default"  %></li>
+          <% end %>
         </ul>
       </div>
 
       <ul class="nav navbar-nav pull-xs-right">
         <%= if Guardian.Plug.current_resource(@conn) do %>
         <li class="nav-item"><%= link "Account", to: account_path(@conn, :edit), class: "btn btn-default"  %></li>
+        <li class="nav-item"><%= link "Logout", to: session_path(@conn, :delete), class: "btn btn-danger"  %></li>
         <%= else %>
         <li class="nav-item"><%= link "Sign In", to: session_path(@conn, :new), class: "btn btn-default"  %></li>
         <li class="nav-item"><%= link "Sign Up", to: registration_path(@conn, :new), class: "btn btn-secondary"  %></li>

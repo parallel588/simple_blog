@@ -1,0 +1,18 @@
+<h2>Show Account</h2>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @account.name %>
+  </li>
+
+  <li>
+    <strong>Email:</strong>
+    <%= @account.email %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: admin_account_path(@conn, :edit, @account), class: "btn btn-link" %></span>
+<span><%= link "Back", to: admin_account_path(@conn, :index), class: "btn btn-link" %></span>

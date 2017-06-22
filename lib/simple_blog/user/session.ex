@@ -8,10 +8,4 @@ defmodule SimpleBlog.User.Session do
     field :password, :string
   end
 
-  @doc false
-  def changeset(%Session{} = session, attrs) do
-    session
-    |> cast(attrs, [:email, :password])
-    |> validate_required([:email, :password])
-  end
 end

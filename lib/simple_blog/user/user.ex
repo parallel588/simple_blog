@@ -8,6 +8,53 @@ defmodule SimpleBlog.User do
 
   alias SimpleBlog.User.{Account,Registration,Session}
 
+  @doc """
+  Returns the list of accounts.
+
+  ## Examples
+
+      iex> list_accounts()
+      [%Account{}, ...]
+
+  """
+  def list_accounts do
+    Repo.all(Account)
+  end
+
+  @doc """
+  Gets a single account.
+
+  Raises `Ecto.NoResultsError` if the Account does not exist.
+
+  ## Examples
+
+  iex> get_account!(123)
+  %Account{}
+
+  iex> get_account!(456)
+  ** (Ecto.NoResultsError)
+
+  """
+  def get_account!(id), do: Repo.get!(Account, id)
+
+  @doc """
+  Signs in a account.
+
+  ## Examples
+
+  iex> signin_account(%{field: value})
+  {:ok, %Account{}}
+
+  iex> signin_account(%{field: bad_value})
+  {:error, %Ecto.Changeset{}}
+
+  """
+  def signin_account(attrs) do
+    %Session{}
+    |> session_changeset(attrs)
+    |> check_password(attrs)
+  end
+
 
    @doc """
   Creates a account.
@@ -143,5 +190,32 @@ defmodule SimpleBlog.User do
   defp hashed_password(nil), do: nil
   defp hashed_password(password) do
     Comeonin.Bcrypt.hashpwsalt(password)
+  end
+
+  defp check_password(%Ecto.Changeset{valid?: false} = session, _attrs) do
+    {:error, %{session | action: "insert"}}
+  end
+  defp check_password(session, %{"password" => password, "email" => email}) do
+    account = Repo.get_by(Account, email: email)
+
+    case authenticate(account, password) do
+      true ->
+        {:ok, account}
+      false ->
+        invalid_session =
+          session
+          |> add_error(:password, "password and email do not match")
+        {
+          :error,
+          %{invalid_session | action: "insert"}
+        }
+    end
+  end
+
+  defp authenticate(account, password) do
+    case account do
+      nil -> false
+      _   -> Comeonin.Bcrypt.checkpw(password, account.encrypted_password)
+    end
   end
 end

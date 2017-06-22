@@ -37,7 +37,14 @@ defmodule SimpleBlog.Web.Router do
 
   scope "/", SimpleBlog.Web do
     pipe_through [:browser, :browser_session, :require_login]
+    get "/logout", SessionController, :delete
     get "/account", AccountController, :edit
     put "/account", AccountController, :update
+  end
+  scope "/admin" , SimpleBlog.Web.Admin, as: :admin do
+    pipe_through [:browser, :browser_session, :require_login]
+    get "/", AccountController, :index
+    resources "/users", AccountController
+    #resources "/blogs", BlogController
   end
 end

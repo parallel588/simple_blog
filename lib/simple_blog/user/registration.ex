@@ -10,10 +10,4 @@ defmodule SimpleBlog.User.Registration do
     field :password_confirmation, :string
   end
 
-  @doc false
-  def changeset(%Registration{} = registration, attrs) do
-    registration
-    |> cast(attrs, [:name, :email])
-    |> validate_required([:name, :email])
-  end
 end
