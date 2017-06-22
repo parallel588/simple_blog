@@ -9,19 +9,35 @@ defmodule SimpleBlog.Web.Router do
     plug :put_secure_browser_headers
   end
 
+  pipeline :browser_session do
+    plug Guardian.Plug.VerifySession
+    plug Guardian.Plug.LoadResource
+  end
+
+  pipeline :require_login do
+    plug Guardian.Plug.EnsureAuthenticated, handler: SimpleBlog.GuardianErrorHandler
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
 
   scope "/", SimpleBlog.Web do
-    pipe_through :browser # Use the default browser stack
+    pipe_through [:browser, :browser_session] # Use the default browser stack
 
     get "/", PostController, :index
+    get "/signup", RegistrationController, :new
+    post "/signup", RegistrationController, :create
+    get "/signin", SessionController, :new
+    post "/signin", SessionController, :create
+
     resources "/posts", PostController, only: [:index, :show]
+
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", SimpleBlog.Web do
-  #   pipe_through :api
-  # end
+  scope "/", SimpleBlog.Web do
+    pipe_through [:browser, :browser_session, :require_login]
+    get "/account", AccountController, :edit
+    put "/account", AccountController, :update
+  end
 end

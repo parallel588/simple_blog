@@ -1,7 +1,7 @@
-defmodule SimpleBlog.User do
+defmodule SimpleBlog.User.Account do
   use Ecto.Schema
   import Ecto.Changeset
-  alias SimpleBlog.User
+  alias SimpleBlog.User.Account
 
 
   schema "users" do
@@ -13,7 +13,7 @@ defmodule SimpleBlog.User do
   end
 
   @doc false
-  def changeset(%User{} = user, attrs) do
+  def changeset(%Account{} = user, attrs) do
     user
     |> cast(attrs, [:name, :email, :encrypted_password])
     |> validate_required([:name, :email, :encrypted_password])
