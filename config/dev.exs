@@ -56,3 +56,8 @@ config :simple_blog, SimpleBlog.Repo,
   database: "simple_blog_dev",
   hostname: "localhost",
   pool_size: 10
+
+# Guardian configuration
+config :guardian, Guardian,
+  ttl: { 90, :days },
+  secret_key: "7JyRrsVsYB8izuJTJvgMfkbl45pYIIRefD2wOnzrhoIkNbJDLQzeigVGryThQc/O"

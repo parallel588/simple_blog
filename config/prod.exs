@@ -61,4 +61,12 @@ config :logger, level: :info
 
 # Finally import the config/prod.secret.exs
 # which should be versioned separately.
+
+# Configure guardian
+config :guardian, Guardian,
+  ttl: { 90, :days },
+  allowed_drift: 2000,
+  secret_key: System.get_env("GUARDIAN_SECRET_KEY")
+
+
 import_config "prod.secret.exs"
