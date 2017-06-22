@@ -7,27 +7,31 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Hello SimpleBlog!</title>
+    <title>Simple Blog!</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
 
   <body>
+
+    <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse fixed-top">
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbars" aria-controls="navbars" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand" href="/">Home</a>
+
+      <div class="collapse navbar-collapse" id="navbars"></div>
+    </nav>
+
     <div class="container">
-      <header class="header">
-        <nav role="navigation">
-          <ul class="nav nav-pills pull-right">
-            <li><a href="http://www.phoenixframework.org/docs">Get Started</a></li>
-          </ul>
-        </nav>
-        <span class="logo"></span>
-      </header>
-
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
-
-      <main role="main">
-        <%= render @view_module, @view_template, assigns %>
-      </main>
+      <%= if get_flash(@conn, :info) do  %>
+      <div class="alert alert-info" role="alert">
+        <%= get_flash(@conn, :info) %>
+      </div>
+      <%= end %>
+      <%= if get_flash(@conn, :error) do  %>
+      <div class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></div>
+      <%= end %>
+      <div><%= render @view_module, @view_template, assigns %> </div>
 
     </div> <!-- /container -->
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
