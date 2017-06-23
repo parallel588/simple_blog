@@ -1,25 +1,21 @@
-<h2>Show Post</h2>
-
 <ul>
 
   <li>
-    <strong>Title:</strong>
-    <%= @post.title %>
+    <h1><%= @post.title %></h1>
   </li>
 
   <li>
-    <strong>Subject:</strong>
-    <%= @post.subject %>
+    <h2><%= @post.subject %></h2>
   </li>
 
   <li>
-    <strong>Content:</strong>
-    <%= @post.content %>
+    <%= raw(@post.content) %>
   </li>
 
   <li>
-    <strong>User:</strong>
-    <%= @post.user_id %>
+    <strong>Author:</strong>
+    <em><%= @post.user.name %></em>
+    <p><span class="glyphicon glyphicon-time"></span> Posted on <%= date_format @post.inserted_at %></p>
   </li>
 
 </ul>

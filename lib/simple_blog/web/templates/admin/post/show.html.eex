@@ -6,10 +6,19 @@
     <strong>id:</strong>
     <%= @post.id %>
   </li>
+  <li>
+    <strong>Title:</strong>
+    <%= @post.title %>
+  </li>
+
+  <li>
+    <strong>Subject:</strong>
+    <%= raw(@post.subject) %>
+  </li>
 
   <li>
     <strong>Content:</strong>
-    <%= @post.content %>
+    <%= raw(@post.content) %>
   </li>
 
 </ul>

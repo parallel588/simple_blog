@@ -20,7 +20,7 @@ defmodule SimpleBlog.PostsTest do
     end
 
     test "list_posts/0 returns all posts" do
-      post = post_fixture()
+      post = post_fixture() |> SimpleBlog.Repo.preload(:user)
       assert Posts.list_posts() == [post]
     end
 
