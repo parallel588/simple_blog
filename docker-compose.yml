@@ -1,0 +1,21 @@
+web:
+  build: .
+  dockerfile: Dockerfile
+  command: mix phx.server
+  environment:
+    - MIX_ENV=dev
+    - PORT=4000
+    - DB_USER=postgres
+    - DB_PASS=postgres
+    - DB_NAME=simple_blog_dev
+    - DB_HOST=postgres
+  volumes:
+    - .:/app
+  ports:
+    - "4000:4000"
+  links:
+    - postgres
+postgres:
+  image: postgres:9.6.1
+  ports:
+    - "5432"
