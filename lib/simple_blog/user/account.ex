@@ -8,7 +8,7 @@ defmodule SimpleBlog.User.Account do
     field :email, :string
     field :encrypted_password, :string
     field :name, :string
-
+    has_many :posts, SimpleBlog.Post
     timestamps()
   end
 

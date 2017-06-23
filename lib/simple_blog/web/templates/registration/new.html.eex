@@ -14,19 +14,19 @@
   </div>
 
   <div class="form-group">
-    <label for="registration_email">Email</label>
+    <label for="registration_email">Email*</label>
     <%= email_input f, :email, class: "form-control" %>
     <%= error_tag f, :email %>
   </div>
 
   <div class="form-group">
-    <label for="registration_password">Password</label>
+    <label for="registration_password">Password*</label>
     <%= password_input f, :password, class: "form-control" %>
     <%= error_tag f, :password %>
   </div>
 
   <div class="form-group">
-    <label for="registration_password_confirmation">Confirm password</label>
+    <label for="registration_password_confirmation">Confirm password*</label>
     <%= password_input f, :password_confirmation, class: "form-control" %>
     <%= error_tag f, :password_confirmation %>
   </div>

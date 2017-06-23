@@ -45,6 +45,6 @@ defmodule SimpleBlog.Web.Router do
     pipe_through [:browser, :browser_session, :require_login]
     get "/", AccountController, :index
     resources "/users", AccountController
-    #resources "/blogs", BlogController
+    resources "/blogs", PostController, as: :blog
   end
 end

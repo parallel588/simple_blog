@@ -1,0 +1,6 @@
+<h2>New Post</h2>
+
+<%= render "form.html", changeset: @changeset, authors: @authors,
+                        action: admin_blog_path(@conn, :create) %>
+
+<span><%= link "Back", to: admin_blog_path(@conn, :index) %></span>

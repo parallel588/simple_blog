@@ -6,7 +6,7 @@ defmodule SimpleBlog.Posts do
   import Ecto.Query, warn: false
   alias SimpleBlog.Repo
 
-  alias SimpleBlog.Posts.Post
+  alias SimpleBlog.Post
 
   @doc """
   Returns the list of posts.
@@ -18,7 +18,9 @@ defmodule SimpleBlog.Posts do
 
   """
   def list_posts do
-    Repo.all(Post)
+    Post
+    |> Repo.all
+    |> Repo.preload([:user])
   end
 
   @doc """

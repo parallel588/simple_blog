@@ -1,0 +1,34 @@
+<h2>Listing Posts</h2>
+<div class="row">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Subject</th>
+        <th>Author</th>
+
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= for post <- @posts do %>
+          <tr>
+            <td><%= post.title %></td>
+            <td><%= post.subject %></td>
+            <td>
+              <%= post.user.name %>/  <%= post.user.email %>
+            </td>
+
+            <td class="text-right">
+              <span><%= link "Show", to: admin_blog_path(@conn, :show, post), class: "btn btn-default btn-sm" %></span>
+              <span><%= link "Edit", to: admin_blog_path(@conn, :edit, post), class: "btn btn-default btn-sm" %></span>
+              <span style="display:inline-block;">
+                <%= link "Delete", to: admin_blog_path(@conn, :delete, post), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-sm" %>
+              </span>
+            </td>
+          </tr>
+          <% end %>
+    </tbody>
+  </table>
+  <span><%= link "New Post", to: admin_blog_path(@conn, :new), class: "btn btn-default btn-sm" %></span>
+</div>

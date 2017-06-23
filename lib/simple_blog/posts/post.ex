@@ -1,14 +1,14 @@
-defmodule SimpleBlog.Posts.Post do
+defmodule SimpleBlog.Post do
   use Ecto.Schema
   import Ecto.Changeset
-  alias SimpleBlog.Posts.Post
+  alias __MODULE__
 
 
-  schema "posts_posts" do
+  schema "posts" do
     field :content, :string
     field :subject, :string
     field :title, :string
-    field :user_id, :integer
+    belongs_to :user, SimpleBlog.User.Account
 
     timestamps()
   end
