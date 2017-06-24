@@ -19,7 +19,6 @@ defmodule SimpleBlog.Web.Admin.AccountController do
     render(conn, "edit.html", account: account, changeset: changeset)
   end
 
-
   def update(conn, %{"id" => id, "account" => account_params}) do
     account = User.get_account!(id)
 

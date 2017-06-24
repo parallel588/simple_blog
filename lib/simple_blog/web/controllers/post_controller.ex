@@ -9,7 +9,9 @@ defmodule SimpleBlog.Web.PostController do
   end
 
   def show(conn, %{"id" => id}) do
-    post = Posts.get_post!(id) |> Repo.preload([:user])
+    post = id
+    |> Posts.get_post!
+    |> Repo.preload([:user])
     render(conn, "show.html", post: post)
   end
 end

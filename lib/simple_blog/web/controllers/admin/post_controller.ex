@@ -13,13 +13,11 @@ defmodule SimpleBlog.Web.Admin.PostController do
     render(conn, "show.html", post: post)
   end
 
-
   def new(conn, _params) do
     changeset = Posts.change_post(%SimpleBlog.Post{})
     authors = User.list_accounts() |> Enum.map(&{&1.email, &1.id})
     render(conn, "new.html", changeset: changeset, authors: authors)
   end
-
 
   def create(conn, %{"post" => post_params}) do
     case Posts.create_post(post_params) do

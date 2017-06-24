@@ -1,4 +1,5 @@
 defmodule SimpleBlog.GuardianErrorHandler do
+  @moduledoc false
   import Plug.Conn
 
   def unauthenticated(conn, _params) do
@@ -7,7 +8,6 @@ defmodule SimpleBlog.GuardianErrorHandler do
     |> Phoenix.Controller.put_flash(:error, "You must be logged in to access that page.")
     |> Phoenix.Controller.redirect(to: "/signin")
   end
-
 
   def redirect_url(conn) do
     case conn.query_string do

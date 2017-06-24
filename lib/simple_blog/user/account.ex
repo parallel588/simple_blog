@@ -1,8 +1,8 @@
 defmodule SimpleBlog.User.Account do
+  @moduledoc false
   use Ecto.Schema
   import Ecto.Changeset
   alias SimpleBlog.User.Account
-
 
   schema "users" do
     field :email, :string

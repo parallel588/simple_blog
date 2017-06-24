@@ -1,8 +1,8 @@
 defmodule SimpleBlog.Post do
+  @moduledoc false
   use Ecto.Schema
   import Ecto.Changeset
   alias __MODULE__
-
 
   schema "posts" do
     field :content, :string

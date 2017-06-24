@@ -15,7 +15,8 @@ defmodule SimpleBlog.Web.Router do
   end
 
   pipeline :require_login do
-    plug Guardian.Plug.EnsureAuthenticated, handler: SimpleBlog.GuardianErrorHandler
+    plug Guardian.Plug.EnsureAuthenticated,
+      handler: SimpleBlog.GuardianErrorHandler
   end
 
   pipeline :api do

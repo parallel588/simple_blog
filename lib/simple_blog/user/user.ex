@@ -6,7 +6,7 @@ defmodule SimpleBlog.User do
   import Ecto.{Query, Changeset}, warn: false
   alias SimpleBlog.Repo
 
-  alias SimpleBlog.User.{Account,Registration,Session}
+  alias SimpleBlog.User.{ Account, Registration, Session }
 
   @doc """
   Returns the list of accounts.
@@ -55,8 +55,7 @@ defmodule SimpleBlog.User do
     |> check_password(attrs)
   end
 
-
-   @doc """
+  @doc """
   Creates a account.
   ## Examples
       iex> create_account(account, %{field: value})
@@ -151,7 +150,6 @@ defmodule SimpleBlog.User do
     |> validate_required([:name, :email])
   end
 
-
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking session changes.
   ## Examples
@@ -197,7 +195,9 @@ defmodule SimpleBlog.User do
     case registration do
       %Ecto.Changeset{valid?: true} ->
         registration
-        |> put_change(:encrypted_password, hashed_password(Map.get(attrs, :password)))
+        |> put_change(
+          :encrypted_password, hashed_password(Map.get(attrs, :password))
+        )
       _ ->
         registration
     end
@@ -231,7 +231,7 @@ defmodule SimpleBlog.User do
   defp authenticate(account, password) do
     case account do
       nil -> false
-      _   -> Comeonin.Bcrypt.checkpw(password, account.encrypted_password)
+      _ -> Comeonin.Bcrypt.checkpw(password, account.encrypted_password)
     end
   end
 end

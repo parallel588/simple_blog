@@ -38,7 +38,8 @@ defmodule SimpleBlog.Mixfile do
      {:cowboy, "~> 1.0"},
      {:guardian, "~> 0.14.4"},
      {:comeonin, "~> 3.0"},
-     {:timex, "~> 3.1"}
+     {:timex, "~> 3.1"},
+     {:credo, "~> 0.8.1", only: [:dev, :test], runtime: false}
     ]
   end
 

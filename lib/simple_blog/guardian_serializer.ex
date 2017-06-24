@@ -1,4 +1,5 @@
 defmodule SimpleBlog.GuardianSerializer do
+  @moduledoc false
   @behaviour Guardian.Serializer
 
   alias SimpleBlog.Repo

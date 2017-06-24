@@ -1,4 +1,5 @@
 defmodule SimpleBlog.User.Registration do
+  @moduledoc false
   use Ecto.Schema
   import Ecto.Changeset
   alias SimpleBlog.User.Registration
