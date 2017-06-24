@@ -117,6 +117,22 @@ defmodule SimpleBlog.User do
   end
 
   @doc """
+  Deletes a Account.
+
+  ## Examples
+
+  iex> delete_account(account)
+  {:ok, %Account{}}
+
+  iex> delete_account(account)
+  {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_account(%Account{} = account) do
+    Repo.delete(account)
+  end
+
+  @doc """
   Returns an `%Ecto.Changeset{}` for tracking account changes.
 
   ## Examples
