@@ -21,5 +21,6 @@
 
   <div class="form-group">
     <%= submit "Sign In", class: "btn btn-primary" %>
+    <%= link "I forgot my password", to: password_path(@conn, :forget), class: "btn btn-default"  %>
   </div>
 <% end %>

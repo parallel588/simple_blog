@@ -1,0 +1,16 @@
+<div class="row">
+  <div class="col-md-8">
+    <p class="login-box-msg">Enter new password</p>
+    <%= form_for (@changeset || @conn), "/password/reset/#{@account.password_reset_code}/confirm", [as: :user], fn f -> %>
+    <div class="form-group">
+      <%= password_input f, :password, placeholder: "Password", class: "form-control" %>
+      <%= error_tag f, :password %>
+    </div>
+    <div class="form-group">
+      <%= password_input f, :password_confirmation, placeholder: "Password confirmation", class: "form-control" %>
+      <%= error_tag f, :password_confirmation %>
+    </div>
+    <%= submit "Reset Password", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

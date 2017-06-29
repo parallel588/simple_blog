@@ -34,6 +34,10 @@ defmodule SimpleBlog.Web.Router do
 
     resources "/posts", PostController, only: [:index, :show]
 
+    get "/password/forget", PasswordController, :forget
+    post "/password/reset", PasswordController, :reset
+    get "/password/reset/:code", PasswordController, :confirm
+    post "/password/reset/:code/confirm", PasswordController, :confirmed
   end
 
   scope "/", SimpleBlog.Web do

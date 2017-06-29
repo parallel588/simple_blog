@@ -7,6 +7,7 @@ defmodule SimpleBlog.User.Account do
   schema "users" do
     field :email, :string
     field :encrypted_password, :string
+    field :password_reset_code, :string
     field :name, :string
     has_many :posts, SimpleBlog.Post
     timestamps()

@@ -6,7 +6,7 @@ defmodule SimpleBlog.User do
   import Ecto.{Query, Changeset}, warn: false
   alias SimpleBlog.Repo
 
-  alias SimpleBlog.User.{ Account, Registration, Session }
+  alias SimpleBlog.User.{ Account, Registration, Session, Password }
 
   @doc """
   Returns the list of accounts.
@@ -36,6 +36,11 @@ defmodule SimpleBlog.User do
 
   """
   def get_account!(id), do: Repo.get!(Account, id)
+  def get_account_by_email(email), do: Repo.get_by(Account, email: email)
+  def get_account_by_code(code) do
+    Account
+    |> Repo.get_by(password_reset_code: code)
+  end
 
   @doc """
   Signs in a account.
@@ -81,6 +86,51 @@ defmodule SimpleBlog.User do
     |> cast(attrs, [:name, :email])
     |> validate_required([:email])
     |> password_digest_changeset(attrs)
+  end
+
+  def reset_password_account(%Account{} = account) do
+    code_length = 40
+    random_string = :crypto.strong_rand_bytes(code_length)
+    |> Base.url_encode64
+    |> binary_part(0, code_length)
+
+    account
+    |> reset_password_account_changeset(%{password_reset_code: random_string})
+    |> Repo.update
+  end
+
+  defp reset_password_account_changeset(%Account{} = account, attrs) do
+    account
+    |> cast(attrs, [:password_reset_code])
+    |> validate_required([:password_reset_code])
+  end
+
+  def update_password(%Account{} = account, attrs) do
+    case reset_password_changeset(attrs) do
+      %Ecto.Changeset{valid?: true} = changeset ->
+        account
+        |> cast(%{password_reset_code: ""}, [:password_reset_code])
+        |> put_change(:encrypted_password, hashed_password(
+              Map.get(changeset.changes, :password))
+        )
+        |> Repo.update()
+      %Ecto.Changeset{valid?: false} = changeset ->
+        {:error, %{changeset | action: "update"}}
+    end
+  end
+
+
+  def reset_password_changeset(attrs) do
+    %Password{}
+    |> cast(attrs, [:password, :password_confirmation])
+    |> validate_required([:password, :password_confirmation])
+    |> validate_length(:password, min: 8)
+    |> validate_confirmation(:password)
+  end
+
+  def prepare_reset_password_changeset(attrs) do
+    %Password{}
+    |> cast(attrs, [:password, :password_confirmation])
   end
 
   @doc """
