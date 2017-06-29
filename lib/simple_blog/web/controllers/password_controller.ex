@@ -12,6 +12,10 @@ defmodule SimpleBlog.Web.PasswordController do
     if account do
       case User.reset_password_account(account) do
         {:ok, account} ->
+          reset_link = password_url(conn, :confirm, account.password_reset_code)
+          account
+          |> SimpleBlog.User.Mailer.reset_password(reset_link)
+          |> SimpleBlog.Mailer.deliver
           conn
           |> put_flash(:info, "Password reset link has been sent to your email address.")
           |> redirect(to: "/")

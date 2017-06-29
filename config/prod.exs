@@ -77,3 +77,11 @@ config :guardian, Guardian,
   ttl: { 90, :days },
   allowed_drift: 2000,
   secret_key: System.get_env("GUARDIAN_SECRET_KEY")
+
+config :simple_blog, SimpleBlog.Mailer,
+  adapter: Swoosh.Adapters.SMTP,
+  username: System.get_env("SENDGRID_USERNAME"),
+  password: System.get_env("SENDGRID_PASSWORD"),
+  relay: "smtp.sendgrid.net",
+  tls: :always,
+  auth: :always

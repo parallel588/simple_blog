@@ -39,6 +39,9 @@ defmodule SimpleBlog.Mixfile do
      {:guardian, "~> 0.14.4"},
      {:comeonin, "~> 3.0"},
      {:timex, "~> 3.1"},
+     {:swoosh, "~> 0.8.1"},
+     {:gen_smtp, "~> 0.11.0"},
+     {:phoenix_swoosh, "~> 0.2"},
      {:credo, "~> 0.8.1", only: [:dev, :test], runtime: false}
     ]
   end

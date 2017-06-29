@@ -20,6 +20,9 @@ set env var:
 1. heroku config:set SECRET_KEY_BASE="your_key_here"
 2. heroku config:set POOL_SIZE=18
 3. heroku config:set GUARDIAN_SECRET_KEY="your_key_here"
+4. heroku config:set HOST="your_host"
+
+and setup SMTP
 
 ## Using Docker For Development
 1. Given you already have docker and docker-compose installed on your machine, Simply run these following commands:
